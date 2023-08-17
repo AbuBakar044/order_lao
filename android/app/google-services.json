@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "467989222422",
+    "project_id": "orderlao-d81f2",
+    "storage_bucket": "orderlao-d81f2.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:467989222422:android:90e6f6fa46ec806ed81137",
+        "android_client_info": {
+          "package_name": "com.example.order_lao"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "467989222422-t4c43q5uhe4qcqgol7jkrcklnp0jgjg1.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAE0BvsEO8YeGuivWA6PaGKpzt7zZClWeY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "467989222422-t4c43q5uhe4qcqgol7jkrcklnp0jgjg1.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
