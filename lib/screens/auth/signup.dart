@@ -34,7 +34,7 @@ class SignupScreen extends StatelessWidget {
                   height: 40.0,
                 ),
                 CustomFormField(
-                  controller: signupCtrl.emailCtrl,
+                  controller: signupCtrl.nameCtrl,
                   validator: (val) {
                     if (val!.isEmpty) {
                       return '*please add name';
@@ -72,7 +72,10 @@ class SignupScreen extends StatelessWidget {
                 CustomButton(
                   buttonName: 'Signup',
                   onTap: () {
-                    signupCtrl.checkValidation();
+                    signupCtrl.checkValidation(
+                        signupCtrl.nameCtrl.text,
+                        signupCtrl.emailCtrl.text,
+                        signupCtrl.passwordCtrl.text);
                   },
                   buttonColor: Colors.green,
                   textColor: kWhiteColor,

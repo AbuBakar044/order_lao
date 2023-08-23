@@ -60,7 +60,10 @@ class LoginScreen extends StatelessWidget {
                 CustomButton(
                   buttonName: 'Login',
                   onTap: () {
-                    loginCtrl.checkValidation();
+                    loginCtrl.checkValidation(
+                      loginCtrl.emailCtrl.text,
+                      loginCtrl.passwordCtrl.text,
+                    );
                   },
                   buttonColor: Colors.green,
                   textColor: kWhiteColor,
