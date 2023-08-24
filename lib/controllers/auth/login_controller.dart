@@ -3,6 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:order_lao/screens/home_screen.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class LoginController extends GetxController {
   final emailCtrl = TextEditingController();
@@ -13,7 +14,6 @@ class LoginController extends GetxController {
 
   void checkValidation(String email, String password) {
     if (loginFormKey.currentState!.validate()) {
-      
       loginUserWithFirebase(email, password);
     }
   }
@@ -25,8 +25,14 @@ class LoginController extends GetxController {
       password: password,
     )
         .then((value) {
+      saveDataToPreferences(email);
       Get.snackbar('Order Lao', 'Loggedin Successfully');
       Get.off(() => const HomeScreen());
     });
+  }
+
+  Future<void> saveDataToPreferences(String email) async {
+    final preferences = await SharedPreferences.getInstance();
+    preferences.setString('email', email);
   }
 }

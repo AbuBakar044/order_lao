@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:order_lao/screens/home_screen.dart';
 
 class SignupController extends GetxController {
   final emailCtrl = TextEditingController();
@@ -31,6 +32,7 @@ class SignupController extends GetxController {
         },
       ).then((val) {
         Get.snackbar('Order Lao', 'Profile created successfully');
+        Get.off(() => const HomeScreen());
       });
     });
   }
