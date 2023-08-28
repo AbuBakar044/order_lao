@@ -1,6 +1,7 @@
 import 'package:get/get.dart';
 import 'package:order_lao/screens/auth/login.dart';
 import 'package:order_lao/screens/home_screen.dart';
+import 'package:order_lao/screens/profile/my_profile.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class SplashController extends GetxController {
@@ -18,7 +19,7 @@ class SplashController extends GetxController {
     final preferences = await SharedPreferences.getInstance();
 
     if (preferences != null && preferences.containsKey('email')) {
-      Get.offAll(() => const HomeScreen());
+      Get.offAll(() => const MyProfile());
     } else {
       Get.offAll(() => const LoginScreen());
     }

@@ -25,7 +25,7 @@ class SignupScreen extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                MyText(
+                const MyText(
                   text: 'Signup',
                   size: 35.0,
                   weight: FontWeight.bold,

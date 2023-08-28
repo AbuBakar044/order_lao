@@ -25,14 +25,20 @@ class LoginController extends GetxController {
       password: password,
     )
         .then((value) {
-      saveDataToPreferences(email);
+      saveDataToPreferences(
+        email,
+        value.user!.uid,
+      );
       Get.snackbar('Order Lao', 'Loggedin Successfully');
       Get.off(() => const HomeScreen());
     });
   }
 
-  Future<void> saveDataToPreferences(String email) async {
+  Future<void> saveDataToPreferences(String email, String id) async {
     final preferences = await SharedPreferences.getInstance();
     preferences.setString('email', email);
+    preferences.setString('id', id);
+
+    print('...................This is User Id $id');
   }
 }
