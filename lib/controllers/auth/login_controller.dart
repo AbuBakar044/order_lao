@@ -3,6 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:order_lao/screens/home_screen.dart';
+import 'package:order_lao/screens/profile/my_profile.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class LoginController extends GetxController {
@@ -30,7 +31,7 @@ class LoginController extends GetxController {
         value.user!.uid,
       );
       Get.snackbar('Order Lao', 'Loggedin Successfully');
-      Get.off(() => const HomeScreen());
+      Get.off(() => const MyProfile());
     });
   }
 

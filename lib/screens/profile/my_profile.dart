@@ -18,34 +18,44 @@ class MyProfile extends StatelessWidget {
           title: MyText(text: 'My Profile'),
         ),
         body: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              InkWell(
-                onTap: () {
-                  ctrl.getImageFromCamera();
-                },
-                child: CircleAvatar(
-                  radius: 70.0,
-                  backgroundColor: kBlackColor,
-                  backgroundImage: ctrl.userImage == null
-                      ? AssetImage(kAppLogo)
-                      : MemoryImage(ctrl.userImage!) as ImageProvider,
+          child: ctrl.isLoadingData!
+              ? const CircularProgressIndicator()
+              : Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    InkWell(
+                      onTap: () {
+                        ctrl.getImageFromCamera();
+                      },
+                      child: CircleAvatar(
+                        radius: 70.0,
+                        backgroundColor: kBlackColor,
+                        backgroundImage: ctrl.userImage == null
+                            ? AssetImage(kAppLogo)
+                            : MemoryImage(ctrl.userImage!) as ImageProvider,
+                      ),
+                    ),
+                    const SizedBox(
+                      height: 30.0,
+                    ),
+                    MyText(text: ctrl.userName!),
+                    const SizedBox(
+                      height: 30.0,
+                    ),
+                    MyText(text: ctrl.email!),
+                    const SizedBox(
+                      height: 50.0,
+                    ),
+                    ElevatedButton(
+                      onPressed: () {
+                        ctrl.uploadImageToFirebase();
+                      },
+                      child: const MyText(
+                        text: 'Save Image',
+                      ),
+                    )
+                  ],
                 ),
-              ),
-              const SizedBox(
-                height: 50.0,
-              ),
-              ElevatedButton(
-                onPressed: () {
-                  ctrl.uploadImageToFirebase();
-                },
-                child: const MyText(
-                  text: 'Save Image',
-                ),
-              )
-            ],
-          ),
         ),
       );
     });

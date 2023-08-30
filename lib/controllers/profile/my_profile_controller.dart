@@ -1,6 +1,5 @@
 import 'dart:io';
 import 'dart:typed_data';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
@@ -11,12 +10,19 @@ class MyProfileController extends GetxController {
   Uint8List? userImage;
   XFile? cameraImage;
   FirebaseStorage firebaseStorage = FirebaseStorage.instance;
+  FirebaseFirestore firestore = FirebaseFirestore.instance;
   String? userID;
   Future<String>? url;
+  String? userName;
+  String? email;
+  bool? isLoadingData = true;
 
   @override
   onInit() {
-    getUserDate();
+    getUserDate().then((value) {
+      getUserDataFromFirebase();
+    });
+    
     super.onInit();
   }
 
@@ -30,8 +36,6 @@ class MyProfileController extends GetxController {
       update();
     }
   }
-
- 
 
   uploadImageToFirebase() async {
     if (userImage == null || userID == null) {
@@ -51,7 +55,10 @@ class MyProfileController extends GetxController {
             .child(userID!)
             .getDownloadURL();
 
-        await FirebaseFirestore.instance.collection('users').doc(userID).set({
+        await FirebaseFirestore.instance
+            .collection('users')
+            .doc(userID)
+            .update({
           'user_image': url,
         });
 
@@ -71,5 +78,14 @@ class MyProfileController extends GetxController {
       userID = preferences.getString('id');
       update();
     }
+  }
+
+  Future<void> getUserDataFromFirebase() async {
+    firestore.collection('users').doc(userID).get().then((value) {
+      userName = value.data()!['name'].toString();
+      email = value.data()!['email'].toString();
+      isLoadingData = false;
+      update();
+    });
   }
 }
