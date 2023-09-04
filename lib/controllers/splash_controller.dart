@@ -19,7 +19,7 @@ class SplashController extends GetxController {
     final preferences = await SharedPreferences.getInstance();
 
     if (preferences != null && preferences.containsKey('email')) {
-      Get.offAll(() => const MyProfile());
+      Get.offAll(() => const HomeScreen());
     } else {
       Get.offAll(() => const LoginScreen());
     }

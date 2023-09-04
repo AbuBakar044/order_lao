@@ -31,7 +31,7 @@ class LoginController extends GetxController {
         value.user!.uid,
       );
       Get.snackbar('Order Lao', 'Loggedin Successfully');
-      Get.off(() => const MyProfile());
+      Get.off(() => const HomeScreen());
     });
   }
 
