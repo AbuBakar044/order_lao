@@ -2,6 +2,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
+import 'package:get/get.dart';
+import 'package:order_lao/controllers/home_controller.dart';
 import 'package:order_lao/screens/widgets/custom_drawer.dart';
 import 'package:order_lao/screens/widgets/custom_form_field.dart';
 import 'package:order_lao/screens/widgets/my_text.dart';
@@ -22,44 +24,51 @@ class _HomeScreenState extends State<HomeScreen> {
   String? fatherName;
   @override
   Widget build(BuildContext context) {
+    Get.put<HomeController>(HomeController());
     return Scaffold(
       appBar: AppBar(
         title: MyText(text: 'Home'),
         centerTitle: true,
       ),
       drawer: CustomDrawer(),
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          CustomFormField(
-            controller: nameCtrl,
-          ),
-          CustomFormField(
-            controller: fatherNameCtrl,
-          ),
-          TextButton(
-            onPressed: () {
-              saveUserData();
-            },
-            child: const MyText(
-              text: 'Save Data',
-            ),
-          ),
-          TextButton(
-            onPressed: () {
-              getUserData();
-            },
-            child: const MyText(
-              text: 'Receive Data',
-            ),
-          ),
-          MyText(text: 'Name'),
-          MyText(text: name ?? ''),
-          MyText(text: 'Father Name'),
-          MyText(text: fatherName ?? ''),
-        ],
-      ),
+      body: GetBuilder<HomeController>(builder: (ctrl) {
+        return ctrl.isLoadingData
+            ? const Center(
+                child: CircularProgressIndicator(),
+              )
+            : Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  CustomFormField(
+                    controller: nameCtrl,
+                  ),
+                  CustomFormField(
+                    controller: fatherNameCtrl,
+                  ),
+                  TextButton(
+                    onPressed: () {
+                      saveUserData();
+                    },
+                    child: const MyText(
+                      text: 'Save Data',
+                    ),
+                  ),
+                  TextButton(
+                    onPressed: () {
+                      getUserData(1);
+                    },
+                    child: const MyText(
+                      text: 'Receive Data',
+                    ),
+                  ),
+                  MyText(text: 'Name'),
+                  MyText(text: ctrl.carDataList[2].address ?? ''),
+                  MyText(text: 'Father Name'),
+                  MyText(text: fatherName ?? ''),
+                ],
+              );
+      }),
     );
   }
 
@@ -71,7 +80,6 @@ class _HomeScreenState extends State<HomeScreen> {
       },
     );
   }
-  
 
   Future<void> getUserData(int index) async {
     firestore.collection('test_user').get().then((value) {
