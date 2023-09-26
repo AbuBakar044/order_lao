@@ -33,6 +33,20 @@ class _WebViewScreenState extends State<WebViewScreen> {
     controller = WebViewController()
       ..setJavaScriptMode(JavaScriptMode.unrestricted)
       ..loadRequest(Uri.parse(url))
-      ..canGoBack();
+      ..setNavigationDelegate(NavigationDelegate(
+        onPageStarted: (url) {
+          controller.runJavaScript('''
+                                    document.getElementById('header').style.display='none';
+                                    ''');
+        },
+      ));
+
+    if (await controller.canGoBack()) {
+      controller.goBack();
+    }
+
+    if (await controller.canGoForward()) {
+      controller.goForward();
+    }
   }
 }
